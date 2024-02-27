@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SimpleSign</title>
+    <link rel="icon" href="favicon.png" type="image/x-icon">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <h1 class="header-title">SimpleSign</h1>
+    </header>
+
+    <div class="container">
+        <div class="controls">
+            <label for="inkColor">Ink Color:</label>
+            <input type="color" id="inkColor" value="#000000">
+            <label for="bgColor">Background Color:</label>
+            <input type="color" id="bgColor" value="#ffffff">
+            <label for="fontSize">Font Size:</label>
+            <input type="range" id="fontSize" min="10" max="40" value="20">
+            <label for="transparent">Transparent Background:</label>
+            <input type="checkbox" id="transparent" checked>
+        </div>
+        <div class="signature-container">
+            <canvas id="signatureCanvas" width="900" height="500"></canvas>
+            <div class="btn-container">
+                <button id="clearBtn" class="redBtn">Clear</button>
+                <button id="downloadBtn" class="greenBtn">Download</button>
+            </div>
+        </div>
+    </div>
+
+    <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="anushrav" data-description="Support me on Buy me a coffee!" data-message="" data-color="#5F7FFF" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+
+    <script src="script.js"></script>
+</body>
+</html>

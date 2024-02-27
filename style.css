@@ -1,0 +1,91 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0; 
+    font-family: Arial, sans-serif;
+}
+
+.header {
+    background-color: #ffcc00; 
+    text-align: center;
+    padding: 20px 0;
+    width: 100%; 
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-title {
+    color: white; 
+    font-family: Montserrat, sans-serif;
+    font-weight: bold;
+    font-style: italic;
+    margin: 0;
+}
+
+.container {
+    text-align: center;
+    width: 80%; 
+    max-width: fit-content; 
+}
+
+.controls {
+    margin-top: 50px;
+    margin-bottom: 10px;
+}
+
+.signature-container {
+    display: inline-block;
+    padding: 10px;
+}
+
+canvas {
+    border: none;
+    border: 3px solid black;
+    border-radius: 10px;
+    display: inline-block;
+    margin-top: 80px;
+    margin: auto;
+    width: 100%; 
+    max-width: fit-content; 
+}
+
+.btn-container {
+    margin-top: 10px;
+}
+
+.redBtn{
+    background-color: #d71f1f;
+    color: white; 
+    border: none; 
+    padding: 15px 32px; 
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.greenBtn {
+    background-color: #4CAF50;
+    color: white; 
+    border: none; 
+    padding: 15px 32px; 
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.redBtn:hover,
+.greenBtn:hover {
+    background-color: #3232c5;
+}
