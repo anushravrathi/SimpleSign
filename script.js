@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let lastX = 0;
     let lastY = 0;
     let isTransparent = true;
-    let penSize = fontSizeInput.value / 10; 
+    let penSize = fontSizeInput.value / 10;
 
     context.font = `${fontSizeInput.value}px Arial`;
 
@@ -22,30 +22,33 @@ document.addEventListener("DOMContentLoaded", function() {
         context.lineWidth = penSize;
         context.beginPath();
         context.moveTo(lastX, lastY);
-        context.lineTo(e.offsetX, e.offsetY);
+        context.lineTo(e.clientX || e.touches[0].clientX, e.clientY || e.touches[0].clientY);
         context.stroke();
-        [lastX, lastY] = [e.offsetX, e.offsetY];
+        [lastX, lastY] = [e.clientX || e.touches[0].clientX, e.clientY || e.touches[0].clientY];
     }
 
     canvas.addEventListener("mousedown", (e) => {
         isDrawing = true;
-        [lastX, lastY] = [e.offsetX, e.offsetY];
+        [lastX, lastY] = [e.clientX, e.clientY];
     });
 
     canvas.addEventListener("mousemove", draw);
     canvas.addEventListener("mouseup", () => isDrawing = false);
     canvas.addEventListener("mouseout", () => isDrawing = false);
 
+    canvas.addEventListener("touchstart", (e) => {
+        isDrawing = true;
+        [lastX, lastY] = [e.touches[0].clientX, e.touches[0].clientY];
+    });
+
+    canvas.addEventListener("touchmove", draw);
+    canvas.addEventListener("touchend", () => isDrawing = false);
+    canvas.addEventListener("touchcancel", () => isDrawing = false);
+
     clearBtn.addEventListener("click", () => {
         context.clearRect(0, 0, canvas.width, canvas.height);
-        if (transparentCheckbox.checked) {
-            context.fillStyle = "rgba(0, 0, 0, 0)";
-            isTransparent = true;
-        } else {
-            context.fillStyle = bgColorInput.value;
-            isTransparent = false;
-            context.fillRect(0, 0, canvas.width, canvas.height);
-        }
+        transparentCheckbox.checked = true;
+        isTransparent = true;
     });
 
     downloadBtn.addEventListener("click", () => {
@@ -58,12 +61,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
     inkColorInput.addEventListener("change", () => {
         context.strokeStyle = inkColorInput.value;
+        transparentCheckbox.checked = false; // Uncheck transparent when ink color changes
     });
 
     bgColorInput.addEventListener("change", () => {
-        if (!isTransparent) {
-            context.fillStyle = bgColorInput.value;
-            context.fillRect(0, 0, canvas.width, canvas.height);
+        if (transparentCheckbox.checked) {
+            transparentCheckbox.checked = false;
         }
     });
 
