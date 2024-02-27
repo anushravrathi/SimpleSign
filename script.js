@@ -9,28 +9,28 @@ document.addEventListener("DOMContentLoaded", function() {
     const transparentCheckbox = document.getElementById("transparent");
 
     let isDrawing = false;
-    let lastX = 0;
-    let lastY = 0;
     let isTransparent = true;
     let penSize = fontSizeInput.value / 10;
 
     context.font = `${fontSizeInput.value}px Arial`;
 
     function draw(e) {
-        if (!isDrawing) return;
         e.preventDefault(); // Prevent scrolling
+        if (!isDrawing) return;
+        const rect = canvas.getBoundingClientRect();
+        const x = (e.clientX || e.touches[0].clientX) - rect.left;
+        const y = (e.clientY || e.touches[0].clientY) - rect.top;
         context.strokeStyle = inkColorInput.value;
         context.lineWidth = penSize;
-        context.beginPath();
-        context.moveTo(lastX, lastY);
-        context.lineTo(e.clientX || e.touches[0].clientX, e.clientY || e.touches[0].clientY);
+        context.lineTo(x, y);
         context.stroke();
-        [lastX, lastY] = [e.clientX || e.touches[0].clientX, e.clientY || e.touches[0].clientY];
+        context.beginPath();
+        context.moveTo(x, y);
     }
 
     canvas.addEventListener("mousedown", (e) => {
         isDrawing = true;
-        [lastX, lastY] = [e.clientX, e.clientY];
+        draw(e);
     });
 
     canvas.addEventListener("mousemove", draw);
@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     canvas.addEventListener("touchstart", (e) => {
         isDrawing = true;
-        [lastX, lastY] = [e.touches[0].clientX, e.touches[0].clientY];
+        draw(e);
     });
 
     canvas.addEventListener("touchmove", draw);
@@ -61,7 +61,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     inkColorInput.addEventListener("change", () => {
-        context.strokeStyle = inkColorInput.value;
     });
 
     bgColorInput.addEventListener("change", () => {
@@ -77,11 +76,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
     transparentCheckbox.addEventListener("change", () => {
         if (transparentCheckbox.checked) {
-            context.fillStyle = "rgba(0, 0, 0, 0)";
+            context.clearRect(0, 0, canvas.width, canvas.height);
             isTransparent = true;
         } else {
-            context.fillStyle = bgColorInput.value;
             isTransparent = false;
+            context.fillStyle = bgColorInput.value;
             context.fillRect(0, 0, canvas.width, canvas.height);
         }
     });
