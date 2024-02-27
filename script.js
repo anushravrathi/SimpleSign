@@ -61,6 +61,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     inkColorInput.addEventListener("change", () => {
+        context.strokeStyle = inkColorInput.value;
     });
 
     bgColorInput.addEventListener("change", () => {
