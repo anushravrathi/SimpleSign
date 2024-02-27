@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function draw(e) {
         if (!isDrawing) return;
+        e.preventDefault(); // Prevent scrolling
         context.strokeStyle = inkColorInput.value;
         context.lineWidth = penSize;
         context.beginPath();
@@ -61,7 +62,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     inkColorInput.addEventListener("change", () => {
         context.strokeStyle = inkColorInput.value;
-        transparentCheckbox.checked = false; // Uncheck transparent when ink color changes
     });
 
     bgColorInput.addEventListener("change", () => {
