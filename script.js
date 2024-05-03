@@ -24,12 +24,11 @@ document.addEventListener("DOMContentLoaded", function() {
         context.lineWidth = penSize;
         context.lineTo(x, y);
         context.stroke();
-        context.beginPath();
-        context.moveTo(x, y);
     }
 
     canvas.addEventListener("mousedown", (e) => {
         isDrawing = true;
+        context.beginPath(); // Start a new path
         draw(e);
     });
 
@@ -39,6 +38,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     canvas.addEventListener("touchstart", (e) => {
         isDrawing = true;
+        context.beginPath(); // Start a new path
         draw(e);
     });
 
@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     inkColorInput.addEventListener("change", () => {
-        context.strokeStyle = inkColorInput.value;
+        transparentCheckbox.checked = false; // Uncheck transparent when ink color changes
     });
 
     bgColorInput.addEventListener("change", () => {
